@@ -168,4 +168,21 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   convertImagesToWebP();
+
+  // 8. Instant Background Image Preloader for Zero Load Delays
+  function preloadImages() {
+    const allImgs = document.querySelectorAll('img');
+    allImgs.forEach(img => {
+      if (img.src) {
+        const cacheImg = new Image();
+        cacheImg.src = img.src;
+      }
+    });
+  }
+
+  if (document.readyState === 'complete') {
+    preloadImages();
+  } else {
+    window.addEventListener('load', preloadImages);
+  }
 });
